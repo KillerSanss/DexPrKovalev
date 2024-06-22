@@ -1,0 +1,6 @@
+@KovalevDiscord_HostAddress = http://localhost:5017
+
+GET {{KovalevDiscord_HostAddress}}
+Accept: application/json
+
+###
