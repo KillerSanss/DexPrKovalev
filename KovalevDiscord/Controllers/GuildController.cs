@@ -13,11 +13,16 @@ public class GuildsController : ControllerBase
 {
     private readonly IDiscordApi _discordApi;
     private readonly AuthorizationToken _authorizationToken;
+    private readonly CreateDiscordGuildParams _createDiscordGuildParams;
 
-    public GuildsController(IDiscordApi discordApi, IOptions<AuthorizationToken> authorizationToken)
+    public GuildsController(
+        IDiscordApi discordApi,
+        IOptions<AuthorizationToken> authorizationToken,
+        IOptions<CreateDiscordGuildParams> createDiscordGuildParams)
     {
         _discordApi = discordApi;
         _authorizationToken = authorizationToken.Value;
+        _createDiscordGuildParams = createDiscordGuildParams.Value;
     }
 
     /// <summary>
@@ -51,9 +56,18 @@ public class GuildsController : ControllerBase
     [HttpPost("create_guild")]
     public async Task<ActionResult<CreateGuildResponse>> CreateGuild([FromBody] CreateGuildRequest guild)
     {
-        var createdGuild = await _discordApi.CreateGuildAsync(guild, _authorizationToken.Token);
+        var createdGuild = await _discordApi.CreateGuildAsync(
+            guild,
+            _authorizationToken.Token,
+            _createDiscordGuildParams.Accept,
+            _createDiscordGuildParams.AcceptLanguage,
+            _createDiscordGuildParams.DebugOptions,
+            _createDiscordGuildParams.DiscordLocale,
+            _createDiscordGuildParams.DiscordTimezone,
+            _createDiscordGuildParams.SuperProps);
         return Ok(createdGuild);
     }
+
 
     /// <summary>
     /// Обновление сервера (гильдии).

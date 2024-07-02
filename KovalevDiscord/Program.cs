@@ -11,6 +11,7 @@ builder.Services.AddRefitClient<IDiscordApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://discord.com/api/v9"));
 
 builder.Services.Configure<AuthorizationToken>(builder.Configuration.GetSection(nameof(AuthorizationToken)));
+builder.Services.Configure<CreateDiscordGuildParams>(builder.Configuration.GetSection(nameof(CreateDiscordGuildParams)));
 
 builder.Services.AddCors(options =>
 {

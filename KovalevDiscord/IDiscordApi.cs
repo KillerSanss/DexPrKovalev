@@ -32,9 +32,23 @@ public interface IDiscordApi
     /// </summary>
     /// <param name="guild">Данные сервера (гильдии).</param>
     /// <param name="authorization">Токен авторизации.</param>
+    /// <param name="accept">Принимает.</param>
+    /// <param name="language">Язык.</param>
+    /// <param name="debugOptions">Опции дебага.</param>
+    /// <param name="discordLocale">Язык дискорда.</param>
+    /// <param name="discordTimezone">Временной пояс.</param>
+    /// <param name="superProperties">Супер параметры.</param>
     /// <returns>Созданный сервер (гильдия).</returns>
     [Post("/guilds")]
-    public Task<CreateGuildResponse> CreateGuildAsync([FromBody] CreateGuildRequest guild, [Header("Authorization")] string authorization);
+    public Task<CreateGuildResponse> CreateGuildAsync(
+        [FromBody] CreateGuildRequest guild, 
+        [Header("Authorization")] string authorization,
+        [Header("accept")] string accept,
+        [Header("accept-language")] string language,
+        [Header("x-debug-options")] string debugOptions,
+        [Header("x-discord-locale")] string discordLocale,
+        [Header("x-discord-timezone")] string discordTimezone,
+        [Header("x-super-properties")] string superProperties);
 
     /// <summary>
     /// Обновление сервера (гильдии)
